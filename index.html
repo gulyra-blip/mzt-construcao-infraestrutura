@@ -110,13 +110,13 @@
           <h2>Vamos conversar sobre o seu próximo projeto.</h2>
           <p>Envie as informações do serviço que você precisa e nossa equipe poderá avaliar sua demanda.</p>
         </div>
-        <form class="form" action="mailto:contato@mztconstrutora.com.br" method="post" enctype="text/plain">
+        <form class="form" id="orcamento-form">
           <label>Nome<input type="text" name="Nome" placeholder="Seu nome" required></label>
           <label>Empresa / Condomínio<input type="text" name="Empresa" placeholder="Nome da empresa ou condomínio"></label>
           <label>E-mail<input type="email" name="Email" placeholder="seu@email.com" required></label>
           <label>Telefone / WhatsApp<input type="tel" name="Telefone" placeholder="(16) 99999-9999"></label>
           <label>Como podemos ajudar?<textarea name="Mensagem" rows="5" placeholder="Conte brevemente sobre seu projeto..." required></textarea></label>
-          <button class="button primary" type="submit">Enviar solicitação</button>
+          <button class="button primary" type="submit"><button class="button primary" type="submit">Enviar pelo WhatsApp</button>
         </form>
       </div>
     </section>
@@ -133,5 +133,34 @@
       <div>mztconstrutora.com.br</div>
     </div>
   </footer>
+<script>
+document.getElementById('orcamento-form').addEventListener('submit', function(event) {
+  event.preventDefault();
+
+  const form = event.currentTarget;
+
+  const nome = form.elements['Nome'].value.trim();
+  const empresa = form.elements['Empresa'].value.trim();
+  const email = form.elements['Email'].value.trim();
+  const telefone = form.elements['Telefone'].value.trim();
+  const mensagem = form.elements['Mensagem'].value.trim();
+
+  const texto = [
+    'Olá! Vim pelo site da MZT Construção e Infraestrutura e gostaria de solicitar um orçamento.',
+    '',
+    'Nome: ' + nome,
+    empresa ? 'Empresa / Condomínio: ' + empresa : '',
+    email ? 'E-mail: ' + email : '',
+    telefone ? 'Telefone / WhatsApp: ' + telefone : '',
+    '',
+    'Descrição do serviço:',
+    mensagem
+  ].filter(Boolean).join('\n');
+
+  const url = 'https://wa.me/5516992119559?text=' + encodeURIComponent(texto);
+
+  window.location.href = url;
+});
+</script>
 </body>
 </html>
